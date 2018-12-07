@@ -3,7 +3,7 @@
            ___  __        __     __                          ___
     |\/| |  |  /__` |  | |__) | /__` |__| |    | __  |\/| | |__  \  /
     |  | |  |  .__/ \__/ |__) | .__/ |  | |    |     |  | | |___  \/
-                    __                __        __ 
+                    __                __        __
                    /  `  /\  |\ |    |__) |  | /__`
                    \__, /~~\ | \|    |__) \__/ .__/
 
@@ -42,13 +42,17 @@ Periodically occurring PIDs:
 PID descriptions
 ~~~~~~~~~~~~~~~~
 
+101 - Key status
+-----------------
+Transmitted every 100ms. Data bits:
+
+- D0: ``0x04`` Key is turned on
+
 .. _208:
 
 208 - Brake pedal
 -----------------
-
-Break pedal sensor data is transmitted every 20ms. Data bits seem
-to be following:
+Transmitted every 20ms. Data :
 
 - D0: ``0x00`` (const?)
 - D1: ``0x20`` (const?)
@@ -58,10 +62,24 @@ to be following:
 - D6: ``0xc0`` (const?)
 - D7: ``0x00`` (const?)
 
+210 - Accelerator pedal
+-----------------
+Transmitted every 20ms. Data bits:
+
+- D0: ``0x00`` (const?)
+- D1: ``0x20`` (const?)
+- D2: Accelerator pedal position: D2*0.4
+- D3: ``0xc0`` (const?)
+- D4: ``0xc0`` (const?)
+- D5: ``0x00`` (const?)
+- D6: ``0xc0`` (const?)
+- D7: ``0x00`` (const?)
+
 .. _231:
 
 231 - Brake pedal switch sensor
 -------------------------------
+Transmitted every 20ms. Data bits:
 
 - D0-D3: ``0x00`` (const?)
 - D4: ``0x00`` if brake is free, ``0x02`` if brake pedal is pressed
@@ -71,8 +89,7 @@ to be following:
 
 236 - Steering wheel sensor
 ---------------------------
-
-Steering wheel sensor data is transmitted every 10ms. Data bits:
+Transmitted every 10ms. Data bits:
 
 - D0-D1: Steering wheel position with 0.5 degree accuracy, center point ``(0.0 degrees) = D0:0x10, D1:0x00``. ``(((D0 * 256) + D1) - 4096) / 2 = steering wheel position in degrees)``. Negative angle - right, positive angle left.
 - D2-D3: possibly represents rate of change, defaults to ``D2:0x10, D3:0x00`` when steering wheel is at rest.
@@ -81,16 +98,167 @@ Steering wheel sensor data is transmitted every 10ms. Data bits:
 - D6: ``0x00`` (const?)
 - D7: TODO
 
+286 - Charger/Inverter temperature
+---------------------------
+Transmitted every 10ms. Data bits:
+
+- D0-D2: ``0x00`` (const?)
+- D3: Charger/Inverter temperature D3-40
+- D4-D7: ``0x00`` (const?)
+
+298 - Charger/Inverter temperature
+---------------------------
+Transmitted every 100ms. Data bits:
+
+- D0: ``0x34`` (const?)
+- D1: ``0x35`` (const?)
+- D2: ``0x34`` - ``0x35``
+- D3: Motor temperature: D3-40;
+- D4: ``0xc0`` (const?)
+- D5: ``0x00`` (const?)
+- D6 - D7: Motor RPM: ((D6*256.0)+D7)-10000.0
+
+29A - VIN
+---------------------------
+Transmitted every 100ms. Data bits:
+
+- D0:
+- D1:
+- D2:
+- D3:
+- D4:
+- D5:
+- D6
+- D7:
+
+346 - Estimated range / Handbrake
+---------------------------
+Transmitted every 20ms. Data bits:
+
+- D0: ``0x27`` (const?)
+- D1: ``0x10`` (const?)
+- D2: ``0x57`` (const?)
+- D3: ``0x20`` HandBrake is not used
+- D4: ``0x20`` (const?)
+- D5: ``0x00`` (const?)
+- D6: ``0x00`` (const?)
+- D7: Estimated range
+
+373 - Main Battery Voltage and Current
+---------------------------
+Transmitted every 10ms. Data bits:
+
+- D0: ``0x00`` (const?)
+- D1: ``0x00`` (const?)
+- D2 - D3: Main battery current Ampers: ((((D2*256.0)+D3)-32768)/100.0)
+- D4 - D5: Main battery voltage Volts: ()(D4*256.0+D5)/10)
+- D6: ``0x00`` (const?)
+- D7: ``0x00`` (const?)
+
+374 - Main Battery SoC
+---------------------------
+Transmitted every 100ms. Data bits:
+
+- D0: ``0x00`` (const?)
+- D1: SoC (D1-10)/2
+- D2: ``0x00`` (const?)
+- D3: ``0x00`` (const?)
+- D4: ``0x00`` (const?)
+- D5: ``0x00`` (const?)
+- D6: ``0x00`` (const?)
+- D7: ``0x00`` (const?)
+
+384 - Heating currents and temps / AC current
+---------------------------
+Transmitted every 100ms. Data bits:
+
+- D0 - D1: AC current: (D0*256.0+D1)/1000.0
+- D2: ?
+- D3: ?
+- D4: Heating current: D4/10
+- D5: Heating temp return: old:((D5-32)/1.8)-3 new:(D5 * 0.6) - 40.0
+- D6: Heating temp flow: ((D6-32)/1.8)-3, new: (D6 * 0.6) - 40.0d
+- D7: ?
+
+389 - Charger voltage and current
+---------------------------
+Transmitted every 100ms. Data bits:
+
+- D0:?
+- D1: Charger voltage (Type1): D1
+- D2: ?
+- D3: ?
+- D4: ?
+- D5: ?
+- D6: Charger current (Type1): D6/10.0
+- D7: ?
+
+3A4 - Climate console
+---------------------------
+Transmitted every 100ms. Data bits:
+
+- D0: heating level ....
+- D1: ventilation direction
+- D2: ?
+- D3: ?
+- D4: ?
+- D5: ?
+- D6: Charger current (Type1): D6/10.0
+- D7: ?
+
 .. _412:
 
 412 - Speed + Odometer value
 ----------------------------
-
 Transmitted every 100ms. Data bits:
 
 - D0: ``0x7f`` (const?)
 - D1: speed in km/h
 - D2-D4: Odometer display in km. ``((((D2 * 256) + D3) * 256) + D4) = km/h``
 - D5: ``0x00`` (const?)
-- D6: ``0x21`` (const?)
+- D6: ? (const?)
 - D7: ``0x06`` (const?)
+
+418 - Transmission
+----------------------------
+Transmitted every 20ms. Data bits:
+
+- D0:
+    - P: D0 = 0x50
+    - R: D0 = 0x52
+    - N: D0 = 0x4E
+    - D: D0 = 0x44
+    - B: D0 = 0x83
+    - C: D0 = 0x32
+- D1: ``0x00`` (const?)
+- D2: ``0x00`` (const?)
+- D3: ``0x00`` (const?)
+- D4: ``0x00`` (const?)
+- D5: ``0x00`` (const?)
+- D6: ``0x00`` (const?)
+- D7: ``0x06`` (const?)
+
+424 - Lights
+----------------------------
+Transmitted every 100ms. Data bits:
+
+- D0:
+- D1:
+- D2:
+- D3: ``0x00`` (const?)
+- D4: ``0x05`` (const?)
+- D5:
+- D6:
+- D7: ``0xff`` (const?)
+
+6E1/6E2/6E3/6E4 - Battery Voltages and temperatures
+----------------------------
+Transmitted every 40ms. Data bits:
+No temp data in 6E4
+
+- D0: counter
+- D1: ``0x00`` (const?) only 6E1, else: D1-50
+- D2: Temp: D2-50
+- D3: Temp (only 6E1): D3-50, else ``0x00`` (const?)
+- D4 - D5: Voltages ((D4*256+D5)/200)+2.1
+- D6 - D7: Voltages ((D6*256+D7)/200)+2.1
