@@ -199,20 +199,20 @@ Transmitted every 100ms. Data bits:
 Transmitted every 100ms. Data bits:
 
 - D0:
-  heating level:
+  - heating level:
     - ``D0<<4 == 112`` : middle
     - ``D0<<4 > 112`` : Heating
     - ``D0<<4 < 112`` : Cooling
-  AC ON:
+  - AC ON:
     - ``D0>>7 == 1``
 
 - D1: ventilation direction
-(D1 & 0xf0) >> 4 == x
-  ``x=1,2`` Face
-  ``x=3,4`` Legs + Face
-  ``x=5,6`` Legs
-  ``x=7,8`` Legs + Windwshield
-  ``x=9`` Windshield
+  - (D1 & 0xf0) >> 4 == x
+    - ``x=1,2`` Face
+    - ``x=3,4`` Legs + Face
+    - ``x=5,6`` Legs
+    - ``x=7,8`` Legs + Windwshield
+    - ``x=9`` Windshield
 - D2: ?
 - D3: ?
 - D4: ?
@@ -257,28 +257,27 @@ Transmitted every 20ms. Data bits:
 Transmitted every 100ms. Data bits:
 
 - D0:
-  ``D0 & 0x02 != 0`` Automatic Light
-  ``D0 & 0x04 != 0`` Night Headlights
-  ``D0 & 0x08 != 0`` Front Fog lights
-  ``D0 & 0x10 != 0`` Rear Fog Lights
+  - ``D0 & 0x02 != 0`` Automatic Light
+  - ``D0 & 0x04 != 0`` Night Headlights
+  - ``D0 & 0x08 != 0`` Front Fog lights
+  - ``D0 & 0x10 != 0`` Rear Fog Lights
 - D1:
-  ``D1 & 0x00 != 0`` Hazard Light
-  ``D1 & 0x01 != 0`` Blinker Right
-  ``D1 & 0x02 != 0`` Blinker Left
-  ``D1 & 0x04 != 0`` HighBeam
-  ``D1 & 0x04 != 0`` Night Headlights
-  ``D1 & 0x05 != 0`` SideLights
-  ``D1 & 0x20 != 0`` Headlight
-  ``D1 & 0x40!= 0`` ParkingLight
+  - ``D1 & 0x00 != 0`` Hazard Light
+  - ``D1 & 0x01 != 0`` Blinker Right
+  - ``D1 & 0x02 != 0`` Blinker Left
+  - ``D1 & 0x04 != 0`` HighBeam
+  - ``D1 & 0x04 != 0`` Night Headlights
+  - ``D1 & 0x05 != 0`` SideLights
+  - ``D1 & 0x20 != 0`` Headlight
+  - ``D1 & 0x40!= 0`` ParkingLight
 - D2:
-  ``D2 & 0x01 != 0`` Any Door OPEN
-  ``D2 & 0x02 != 0`` Front Left Door OPEN
-
+  - ``D2 & 0x01 != 0`` Any Door OPEN
+  - ``D2 & 0x02 != 0`` Front Left Door OPEN
 - D3: ``0x00`` (const?)
 - D4: ``0x05`` (const?)
 - D5:
 - D6:
-  ``D6 & 0x04 != 0`` Rear windows heating
+  - ``D6 & 0x04 != 0`` Rear windows heating
 - D7: ``0xff`` (const?)
 
 6E1/6E2/6E3/6E4 - Battery Voltages and temperatures
@@ -287,7 +286,7 @@ Transmitted every 40ms. Data bits:
 No temp data in 6E4
 
 - D0: counter
-- D1: ``0x00`` (const?) only 6E1, else: D1-50
+- D1: ``0x00`` (const?) only 6E1, else: Temp: ``D1-50``
 - D2: Temp: D2-50
 - D3: Temp (only 6E1): D3-50, else ``0x00`` (const?)
 - D4 - D5: Voltages ((D4*256+D5)/200)+2.1
