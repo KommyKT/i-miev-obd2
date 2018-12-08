@@ -204,7 +204,7 @@ Transmitted every 100ms. Data bits:
     - ``D0<<4 > 112`` : Heating
     - ``D0<<4 < 112`` : Cooling
   - AC ON:
-    - ``D0>>7 == 1``
+      - ``D0>>7 == 1``
 
 - D1: ventilation direction
   - (D1 & 0xf0) >> 4 == x
@@ -262,22 +262,22 @@ Transmitted every 100ms. Data bits:
   - ``D0 & 0x08 != 0`` Front Fog lights
   - ``D0 & 0x10 != 0`` Rear Fog Lights
 - D1:
-  - ``D1 & 0x00 != 0`` Hazard Light
-  - ``D1 & 0x01 != 0`` Blinker Right
-  - ``D1 & 0x02 != 0`` Blinker Left
-  - ``D1 & 0x04 != 0`` HighBeam
-  - ``D1 & 0x04 != 0`` Night Headlights
-  - ``D1 & 0x05 != 0`` SideLights
-  - ``D1 & 0x20 != 0`` Headlight
-  - ``D1 & 0x40!= 0`` ParkingLight
+    - ``D1 & 0x00 != 0`` Hazard Light
+    - ``D1 & 0x01 != 0`` Blinker Right
+    - ``D1 & 0x02 != 0`` Blinker Left
+    - ``D1 & 0x04 != 0`` HighBeam
+    - ``D1 & 0x04 != 0`` Night Headlights
+    - ``D1 & 0x05 != 0`` SideLights
+    - ``D1 & 0x20 != 0`` Headlight
+    - ``D1 & 0x40!= 0`` ParkingLight
 - D2:
-  - ``D2 & 0x01 != 0`` Any Door OPEN
-  - ``D2 & 0x02 != 0`` Front Left Door OPEN
+    - ``D2 & 0x01 != 0`` Any Door OPEN
+    - ``D2 & 0x02 != 0`` Front Left Door OPEN
 - D3: ``0x00`` (const?)
 - D4: ``0x05`` (const?)
 - D5:
 - D6:
-  - ``D6 & 0x04 != 0`` Rear windows heating
+    - ``D6 & 0x04 != 0`` Rear windows heating
 - D7: ``0xff`` (const?)
 
 6E1/6E2/6E3/6E4 - Battery Voltages and temperatures
